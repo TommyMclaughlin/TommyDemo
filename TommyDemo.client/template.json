@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Tommy",
+  "classifications": [ "Web", "React", "ASP.NET Core" ],
+  "identity": "Tommy.BasicReact.Template",
+  "name": "React + ASP.NET Auth Template",
+  "shortName": "basicreact",
+  "sourceName": "BasicReactTemplate",
+  "tags": {
+    "language": "C#/React/Typescript",
+    "type": "project"
+  }
+}

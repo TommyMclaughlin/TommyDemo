@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="tommydemo.client.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>
