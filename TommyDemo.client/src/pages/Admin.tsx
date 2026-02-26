@@ -11,7 +11,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchItems = async () => {
-            const response = await fetch("api/item/getItems", {
+            const response = await fetch("api/item/getAllItems", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("accessToken")}`
                 }
@@ -29,7 +29,7 @@ const Dashboard = () => {
         const confirmed = window.confirm(`Are you sure you want to delete "${name}"?`);
         if (!confirmed) return;
 
-        const response = await fetch(`api/item/deleteItem/${id}`, {
+        const response = await fetch(`api/item/adminDeleteItem/${id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("accessToken")}`
@@ -51,7 +51,8 @@ const Dashboard = () => {
         }
         if (!description.trim()) {
             setAddError("Description is required!");
-            return;}
+            return;
+        }
 
         const response = await fetch('api/item/addItem/', {
             method: "POST",
@@ -76,7 +77,7 @@ const Dashboard = () => {
 
     return (
         <div>
-            {addError && <p>{addError}</p> }
+            {addError && <p>{addError}</p>}
             <form onSubmit={(e) => {
                 e.preventDefault();
                 handleAddItem(newItemName, newItemDescription);

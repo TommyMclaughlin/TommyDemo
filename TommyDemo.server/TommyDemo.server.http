@@ -1,0 +1,6 @@
+@TommyDemo.server_HostAddress = http://localhost:5133
+
+GET {TommyDemo.server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

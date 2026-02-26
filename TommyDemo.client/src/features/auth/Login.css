@@ -1,6 +1,11 @@
 .loginForm {
-    display:flex;
-    align-content:center;
-    justify-content:center;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.loginBox {
+    display: flex;
+    justify-content: center;
     margin-top: 20%;
 }

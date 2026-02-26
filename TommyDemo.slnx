@@ -3,4 +3,5 @@
     <Build />
     <Deploy />
   </Project>
+  <Project Path="TommyDemo.server/TommyDemo.server.csproj" />
 </Solution>
