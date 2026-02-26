@@ -9,12 +9,15 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const { login } = useAuth();
     const [error, setError] = useState<string>("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         setError("");
+        setIsLoading(true);
+        
         try {
             const response = await fetch("/api/auth/login", {
                 method: "POST",
@@ -26,12 +29,10 @@ const Login = () => {
                 throw new Error("Invalid username or password.");
             }
 
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem("accessToken", data.accessToken);
-                login();
-                navigate("/dashboard");
-            }
+            const data = await response.json();
+            localStorage.setItem("accessToken", data.accessToken);
+            login();
+            navigate("/dashboard");
 
         } catch (err: unknown) {
             if (err instanceof Error) {
@@ -39,21 +40,65 @@ const Login = () => {
             } else {
                 setError("Something went wrong");
             }
+        } finally {
+            setIsLoading(false);
         }
-
     };
 
     return (
-        <div className="loginBox">
+        <div className="login-container">
+            <div className="login-card">
+                <div className="login-header">
+                    <h1>Welcome Back</h1>
+                    <p>Sign in to your account</p>
+                </div>
 
-            <form className="loginForm" onSubmit={handleSubmit}>
-                {error && <p>{error}</p>}
-                <label>Username</label>
-                <input onChange={(e) => setUsername(e.target.value)} />
-                <label>Password</label>
-                <input type="password" onChange={(e) => setPassword(e.target.value)} />
-                <button>Login</button>
-            </form>
+                <form className="login-form" onSubmit={handleSubmit}>
+                    {error && (
+                        <div className="alert alert-error">
+                            {error}
+                        </div>
+                    )}
+
+                    <div className="form-group">
+                        <label htmlFor="username">Username</label>
+                        <input
+                            id="username"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Enter your username"
+                            autoComplete="username"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter your password"
+                            autoComplete="current-password"
+                            required
+                        />
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        className="btn btn-primary"
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <span className="loading-spinner">Signing in...</span>
+                        ) : (
+                            "Sign In"
+                        )}
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
