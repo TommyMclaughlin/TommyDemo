@@ -16,21 +16,33 @@ const Navbar = () => {
     return (
         <>
             <nav className="nav-bar">
-                <img src={logo} />
-                {isAuthenticated && user?.role === "Admin" && (
-                    <NavLink to="/admin" className="button-bar">
-                        Admin Panel
-                    </NavLink>
-                ) }
-                {isAuthenticated && (
-                    <button id="Logout" onClick={handleLogout} className="button-bar">Logout</button>
-                )}
-                {!isAuthenticated && (
-                    <NavLink to="/" className="button-bar">Login</NavLink>
-                )}
-                {!isAuthenticated && (
-                    <NavLink to="/register" className="button-bar">Register</NavLink>
-                ) }
+                <div className="nav-brand">
+                    <img src={logo} alt="Logo" />
+                    <h2>TommyDemo</h2>
+                </div>
+                
+                <div className="nav-links">
+                    {isAuthenticated && user?.role === "Admin" && (
+                        <NavLink to="/admin" className="nav-link">
+                            Admin Panel
+                        </NavLink>
+                    )}
+                    {isAuthenticated && (
+                        <button onClick={handleLogout} className="nav-button-logout">
+                            Logout
+                        </button>
+                    )}
+                    {!isAuthenticated && (
+                        <>
+                            <NavLink to="/" className="nav-link">
+                                Login
+                            </NavLink>
+                            <NavLink to="/register" className="nav-button-register">
+                                Register
+                            </NavLink>
+                        </>
+                    )}
+                </div>
             </nav>
         </>
     );
